@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
 
-    <title>reveal.js – The HTML Presentation Framework</title>
+    <title>Pain in the Asset Pipelines – December 2015</title>
 
-    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-    <meta name="author" content="Hakim El Hattab">
+    <meta name="description" content="A talk about asset pipelines and the future">
+    <meta name="author" content="Ryan Brooks">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -70,6 +70,10 @@
 
         <section>
           <h2>Asset pipelines?</h2>
+        </section>
+
+
+        <section>
           <p>Page performance</p>
           <ol>
             <li>Concatenation</li>
@@ -78,12 +82,10 @@
         </section>
 
         <section>
-          <h2>Asset pipelines?</h2>
           <p>That's just a build system, right?</p>
         </section>
 
         <section>
-          <h2>Asset pipelines?</h2>
           <p>Developer performance</p>
           <ol>
             <li>Sourcemaps</li>
@@ -96,13 +98,13 @@
           </ol>
         </section>
 
-        <section>
+                  <section>
+                    <h2>Asset pipelines 😡</h2>
+                  </section>
 
-
-          <section>
-            <h2>Asset pipelines 😡</h2>
-            <p>Sprockets</p>
-                        <pre><code class="hljs" data-trim contenteditable>
+                  <section>
+                    <h3>Sprockets</h3>
+                                <pre><code class="hljs" data-trim contenteditable>
 /
 |- app
 |   |- assets
@@ -119,27 +121,24 @@
 |- public
     |- application.js
     |- application.css         
-            </code></pre>
-          </section>
+                    </code></pre>
+                  </section>
 
-          <section>
-            <h2>Asset pipelines 😡</h2>
-            <p>Sprockets</p>
-            <pre><code class="hljs" data-trim contenteditable>
+                  <section>
+                    <h3>Sprockets</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
 //= require 'bower_components/Element.closest/closest.js'
 //= require 'bower_components/jquery/dist/jquery.js'
 //= require 'bower_components/jquery-ujs/src/rails.js'
 //= require 'bower_components/lodash/lodash.js'
 //= require 'bower_components/angular/angular.js'
-            </code></pre>
-          </section>
+                    </code></pre>
+                  </section>
 
-          <section>
-            <h2>Asset pipelines 😡</h2>
-            <p>Sprockets</p>
-            <p>dev vs prod</p>
-          </section>
-        </section>
+                  <section>
+                    <h3>Sprockets</h3>
+                    <p>dev and prod</p>
+                  </section>
 
         <section>
         <h2>A quick aside</h2>
@@ -147,8 +146,7 @@
         </section>
 
         <section>
-          <h2>Asset pipelines 😡</h2>
-          <p>Sprockets bad</p>
+          <h3>Sprockets bad, Hulk smash</h3>
           <ul style="margin-left:0;">
             <li style="list-style:none;">✅ Minification</li>
             <li style="list-style:none;">✅ Concatenation</li>
@@ -159,36 +157,97 @@
             <li style="list-style:none;">❌ Modular JavaScript</li>
             <li style="list-style:none;">❌ JavaScript best practices</li>
             <li style="list-style:none;">❌ Not being quirky</li>
-            <li style="list-style:none;">❌ Keeping pace with modern frontend development</li>
             <li style="list-style:none;">❌ Dev == Prod</li>
+            <li style="list-style:none;">❌ Keeping pace with modern frontend development</li>
           </ul>
           <aside class="notes">Our problem</aside>
         </section>
 
         <section>
-            <h2>Asset pipelines!</h2>
-            <p>How do we get to 😍🎆✨?</p>
-          </section>
+          <ul>
+            <li>Abandon Sprockets?</li>
+            <li>Add more gems/middleware?</li>
+            <li>Use a JavaScript build tool?</li>
+          </ul>
         </section>
 
         <section>
-            <h2>Asset pipelines!</h2>
+          <h2>Asset pipelines!</h2>
+          <p>How do we get to 😍🎆✨?</p>
+        </section>
+
+        <section>
+          <p>Single Responsibility</p>
+        </section>
+
+        <section>
+            <p>The plan:</p>
             <ol>
-              <li>Abandon Sprockets</li>
-              <li>Use a JavaScript build tool</li>
-              <li>Profit!</li>
+              <li>Use existing source location</li>
+              <li>Compile to a new directory</li>
+              <li>Switch the ERBs</li>
+              <li>Deprecate Sprockets and rejoice!</li>
             </ol>
-          </section>
         </section>
 
         <section>
-            <h2>Asset pipelines!</h2>
-            <ul>
-              <li>Single Responsibility Principle</li>
-            </l>
-          </section>
+            <p>What actually happened:</p>
+            <ol style="margin-left:0;">
+              <li style="list-style:none;">✅ Use existing source location</li>
+              <li style="list-style:none;">❌ Compile to a new directory</li>
+              <li style="list-style:none;">❌ Switch the ERBs</li>
+              <li style="list-style:none;">❌ Deprecate Sprockets and rejoice!</li>
+            </ol>
         </section>
 
+        <section>
+          <p>Problems</p>
+          <ol>
+            <li>Paths</li>
+            <li>Cachebusting</li>
+          </ol>
+        </section>
+
+        <section>
+          <pre><code class="hljs" data-trim contenteditable>
+{ 
+  "app.js": "app-a41d8cd1.js", 
+  "unicorn.css": "unicorn-d41d8cd98f.css" 
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Happily ever after</h2>
+          <ul>
+            <li>ng-annotate</li>
+            <li>SPA partial compilation</li>
+            <li>Browsersync</li>
+            <li>Karma</li>
+            <li>JSCS</li>
+            <li>Browserify/Webpack</li>
+            <li>Typescript/ES2015</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Is it worth the effort?</h2>
+        </section>
+
+        <section>
+          <p>...yup</p>
+        </section>
+
+        <section>
+          <h3>Context</h3>
+        </section>
+
+        <section>
+          <h3>Thanks</h3>
+          <p>
+            <small><a href="http://ryanbrooks.co.uk">Ryan Brooks</a> / <a href="http://twitter.com/spikeheap">@spikeheap</a></small>
+          </p>
+        </section>
       </div>
 
     </div>
@@ -206,7 +265,7 @@
         history: true,
         center: true,
 
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        transition: 'none', // none/fade/slide/convex/concave/zoom
 
         // Optional reveal.js plugins
         dependencies: [
